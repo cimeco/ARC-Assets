@@ -1,0 +1,16 @@
+{
+  "name": "feature-card",
+  "version": "1.0.0",
+  "description": "Feature Card for ARC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ARC",
+    "Card",
+    "Content"
+  ],
+  "author": "",
+  "license": "ISC"
+}
