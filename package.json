@@ -1,6 +1,6 @@
 {
-  "name": "feature-card",
-  "version": "1.0.0",
+  "name": "@cimeco/feature-card",
+  "version": "1.0.4",
   "description": "Feature Card for ARC",
   "main": "index.js",
   "scripts": {
