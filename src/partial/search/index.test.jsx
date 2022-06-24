@@ -8,11 +8,10 @@ it('Search: should have defined default classes and className.', () => {
 });
 
 it('Input :should have defined default classes and className.', () => {
-  const { container } = render(<input className='p1'/>);
+  const { container } = render(<input className="p1" />);
   expect(container.firstChild).toHaveClass('p1');
 });
 it('Button :should have defined default classes and className.', () => {
-  const { container } = render(<button className='btn'/>);
-  console.log('CTER',container);
+  const { container } = render(<button className="btn" />);
   expect(container.firstChild).toHaveClass('btn');
 });
