@@ -1,17 +1,18 @@
 import React from 'react';
-// import getSectionSlug from "../../../util/getSectionSlug";
 import getProperties from 'fusion:properties';
 import { useFusionContext } from 'fusion:context';
 import { getUrlBySite } from '@cimeco/utils';
+import { getSectionSlug } from '@cimeco/utils';
 
 const Menu = () => {
-  const { arcSite, contextPath, requestUri } = useFusionContext();
+  const { arcSite, contextPath, requestUri, globalContent } =
+    useFusionContext();
   const properties = getProperties(arcSite);
   const { mainMenu } = properties.menues;
-  //const sectionSlug = getSectionSlug(globalContent);
+  const sectionSlug = getSectionSlug(globalContent);
   const sectionUri = `/${requestUri.split('?')[0].split('/')[1]}`;
   return (
-    <nav className={`main-navigation ajuste-1440 px2`}>
+    <nav className={`main-navigation ajuste-1440 px2 ${sectionSlug}`}>
       <button id="scrollbutton-left" className="scrollbutton">
         <i className="material-icons"></i>
       </button>
