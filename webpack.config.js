@@ -9,6 +9,11 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   },
   devtool: false,
+  resolve: {
+    fallback: {
+      net: false
+    }
+  },
   module: {
     rules: [
       {

@@ -5,7 +5,7 @@ module.exports.useFusionContext = () => {
     contextPath: '/pf',
     requestUri: '/deportes/?_website=la-voz',
     globalContent: {
-      section:{
+      section: {
         _id: '/deportes',
         navigation: { nav_title: 'Mundo D' },
         parent: { default: '/' }
