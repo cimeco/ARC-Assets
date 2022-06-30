@@ -1,5 +1,5 @@
 import _ from 'lodash';
-//simulating the site getters, then it will be imported from the utils 
+//simulating the site getters, then it will be imported from the utils
 module.exports.getUrlBySite = (contextPath, url, arcSite) => {
   let _url = url.replace('/homepage', '');
   if (url.includes('http')) {
@@ -8,7 +8,7 @@ module.exports.getUrlBySite = (contextPath, url, arcSite) => {
   return `https://www.lavoz.com.ar${_url}`;
 };
 
-//simulating the slug getters, then it will be imported from the utils 
+//simulating the slug getters, then it will be imported from the utils
 module.exports.getSectionSlug = (globalContent) => {
   if (!globalContent || !globalContent.section || !globalContent.section.parent)
     return '';
