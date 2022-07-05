@@ -3,7 +3,11 @@ module.exports.useFusionContext = () => {
   fusionTest.push({
     arcSite: 'la-voz',
     contextPath: '/pf',
-    requestUri: '/deportes/?_website=la-voz',
+    requestUri: '/deportes/talleres/?_website=la-voz',
+    globalContentConfig: {
+      source: undefined,
+      query: undefined
+    },
     globalContent: {
       section: {
         _id: '/deportes',
