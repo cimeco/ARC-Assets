@@ -20,20 +20,22 @@ describe('<Menu />', () => {
     expect(
       container.firstChild.getElementsByClassName('line pb1 mr2 ')[0]
         .textContent
-    ).toBe('INICIO');
+    ).toBe('FUTBOL');
   });
   it('check active class in sectionUri by mock test props', () => {
     let { container } = render(<Menu />);
     let activeLink = container.firstChild.getElementsByClassName(
-      'line pb1 mr2 active'
+      'line pb1  active'
     )[0];
-    expect(activeLink.textContent).toBe('DEPORTES');
+    expect(activeLink.textContent).toBe('TALLERES');
   });
   it('external links have target ,rel  & have the value property assigned', () => {
-    let { container } = render(<Menu />);
-    let externalLink = container.firstChild.getElementsByTagName('a')[2];
+    let { container,debug } = render(<Menu />);
+    let externalLink = container.firstChild.getElementsByTagName('a')[3];
     expect(externalLink.hasAttribute('target'));
     expect(externalLink.hasAttribute('rel'));
-    expect(externalLink.textContent).toBe('VOY DE VIAJE');
+    let externalName = container.firstChild.getElementsByClassName('line pb1')[2];
+    expect(externalName.textContent).toBe('VOY DE VIAJE');
+    // debug(container)
   });
 });
