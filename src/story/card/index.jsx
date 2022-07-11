@@ -122,4 +122,44 @@ Card.propTypes = {
   ...Icon.propTypes
 };
 
+Card.defaultProps = {
+  target: false,
+  contentElementsOrder: [
+    'ribbons',
+    'publishingTime',
+    'taxonomy',
+    'index',
+    'headline',
+    'subheadline',
+    'authorInfo',
+    'premium',
+    'readMore'
+  ],
+  headlineLevel: 2,
+  taxonomyLevel: 3,
+  headlineStyleSize: 3,
+  imageHeight: 173,
+  imageLayout: 'responsive',
+  imagePosition: 'top',
+  imageRounded: false,
+  imageForce: false,
+  imageWidth: 307,
+  imageIndex: '',
+  publishingTimeFormat: 'HH:mm',
+  showAuthorImage: false,
+  showAuthorInfo: true,
+  showIcon: true,
+  showPublishingTime: false,
+  showRibbon: true,
+  showSubheadline: false,
+  showTag: false,
+  showTaxonomy: true,
+  cardIndex: '',
+  fullCardLink: false,
+  invertTaxonomyAuthor: false,
+  className: '',
+  showReadMore: false,
+  utm: ''
+};
+
 export default Card;
