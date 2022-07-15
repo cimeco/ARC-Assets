@@ -212,17 +212,17 @@ const Content = ({
     const publishingTime = () => {
       moment.locale('es');
       const now = moment(new Date())
-        .clone()
         .tz(
           (properties.site && properties.site.timezone) ||
             'America/Argentina/Buenos_Aires'
-        );
+        )
+        .clone();
       const end = moment(story.display_date)
-        .clone()
         .tz(
           (properties.site && properties.site.timezone) ||
             'America/Argentina/Buenos_Aires'
-        );
+        )
+        .clone();
       const duration = moment.duration(now.diff(end));
       const hours = duration.asHours();
       return (

@@ -9,25 +9,43 @@ import { isPremium } from '@cimeco/utils/src/story';
 
 function Card({
   story,
+  cardIndex,
   className,
+  contentElementsOrder,
   fullCardLink,
-  imageForce,
+  headlineLevel,
+  headlineStyleSize,
   imageHeight,
-  imageIndex,
   imageLayout,
   imagePosition,
   imageRounded,
   imageWidth,
   imageSets,
+  imageForce,
+  imageIndex,
+  invertTaxonomyAuthor,
+  publishingTimeFormat,
   showAuthorImage,
-  showImage,
-  utm,
-  showIcon
+  showAuthorInfo,
+  showIcon,
+  showPublishingTime,
+  showReadMore,
+  showRibbon,
+  showTag,
+  showTaxonomy,
+  showSubheadline,
+  target,
+  taxonomyLevel,
+  utm
 }) {
   /* Class Names */
   const hasOverlay = imagePosition === 'back';
+  const showImage = imagePosition !== 'none';
   const isCard = ['top', 'bottom', 'back'].indexOf(imagePosition) > -1;
   const joinWithSpaces = _.partial(_.join, _, ' ');
+  const headlineSize = !_.isUndefined(headlineStyleSize)
+    ? headlineStyleSize
+    : headlineLevel;
 
   const mainClasses = _.flow(
     _.partial(pushWhen, _, true, className),
@@ -61,8 +79,27 @@ function Card({
   /* Partials properties */
   const contentProperties = {
     story,
+    cardIndex,
     contentClasses,
-    linkClasses
+    contentElementsOrder,
+    fullCardLink,
+    headlineLevel,
+    headlineSize,
+    imagePosition,
+    invertTaxonomyAuthor,
+    linkClasses,
+    publishingTimeFormat,
+    showAuthorImage,
+    showAuthorInfo,
+    showPublishingTime,
+    showRibbon,
+    showTag,
+    showTaxonomy,
+    showSubheadline,
+    showReadMore,
+    target,
+    taxonomyLevel,
+    utm
   };
 
   const imageProperties = {
