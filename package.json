@@ -1,6 +1,6 @@
 {
   "name": "@cimeco/arc-assets",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Feature Card for ARC",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,6 @@
   "license": "ISC",
   "dependencies": {
     "@cimeco/ui": "^1.0.0",
-    "@cimeco/utils": "^1.0.12",
     "lodash": "^4.17.21",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
