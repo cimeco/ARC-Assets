@@ -1,9 +1,8 @@
-import React from 'react';
-import { useFusionContext } from 'fusion:context';
-import { getUrlBySite } from '@cimeco/utils';
+import React from "react";
+import { useFusionContext } from "fusion:context";
+import { getUrlBySite } from "@cimeco/utils";
 
 const Menu = ({ sectionSlug, mainMenu, navClass, sectionUri }) => {
-  
   const { arcSite, contextPath } = useFusionContext();
   return (
     <nav className={`${navClass}-navigation ajuste-1440 px2 ${sectionSlug}`}>
@@ -14,22 +13,42 @@ const Menu = ({ sectionSlug, mainMenu, navClass, sectionUri }) => {
         <i className="material-icons"></i>
       </button>
       <div className="flex flex-nowrap align-items-center col-12">
-        <a className="section-logo" href={'#'}></a>
+        <a className="section-logo" href={"#"}></a>
         <ul className="main-menu scrollable-menu flex justify-between list-reset col col-12 m0 menu-line xs-hide sm-hide">
           {mainMenu.map((item, index) => {
             return (
               <a
                 href={getUrlBySite(contextPath, item.url, arcSite)}
                 key={item.url}
-                target={item.external && '_blank'}
-                rel={item.external && 'noreferrer'}
+                target={item.external && "_blank"}
+                rel={item.external && "noreferrer"}
               >
                 <li
                   className={`line pb1 ${
-                    index < mainMenu.length - 1 ? 'mr2' : ''
-                  } ${sectionUri === item.url ? 'active' : ''}`}
+                    index < mainMenu.length - 1 ? "mr2" : ""
+                  } ${sectionUri === item.url ? "active" : ""}`}
                 >
                   {item.title || item.name}
+                  <ul className="drop-down fixed">
+                    {item.sub
+                      ? item.sub.map((item, index) => {
+                          return (
+                            <a
+                              href={getUrlBySite(
+                                contextPath,
+                                item.url,
+                                arcSite
+                              )}
+                              key={item.url}
+                              target={item.external && "_blank"}
+                              rel={item.external && "noreferrer"}
+                            >
+                              <li key={index}>{item?.title}</li>
+                            </a>
+                          );
+                        })
+                      : null}
+                  </ul>
                 </li>
               </a>
             );
@@ -41,6 +60,7 @@ const Menu = ({ sectionSlug, mainMenu, navClass, sectionUri }) => {
 };
 
 export default Menu;
+
 
 // Menu.propTypes = {
 //   arcSite: PropTypes.string,
