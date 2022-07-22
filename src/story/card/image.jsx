@@ -3,7 +3,12 @@ import getProperties from 'fusion:properties';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { getImagePathData, getUrl, resizeImage } from '@cimeco/utils/src/story';
+import {
+  getImagePathData,
+  getUrl,
+  isPremium,
+  resizeImage
+} from '@cimeco/utils/src/story';
 import { getImage, getUrlBySite } from '@cimeco/utils';
 import CImage from '../CImage';
 
@@ -119,6 +124,7 @@ const Image = ({
         _.isNil(image) || (_.isNil(image.url) ? 'no-image' : '')
       }`}
     >
+      {isPremium(story) ? <div className="premium-article-tag" /> : null}
       {showImage && !_.isNil(imageResizedUrl) && !_.isEmpty(imageResizedUrl) && (
         <a
           href={url}

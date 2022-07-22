@@ -142,7 +142,6 @@ function Card({
           imagePosition === 'back' ? 'no-height' : ''
         }`}
       >
-        {isPremium(story) ? <div className="premium-article-tag" /> : null}
         {orderedPartials.map((item) => {
           return <Fragment key={item}>{partials[item]}</Fragment>;
         })}
