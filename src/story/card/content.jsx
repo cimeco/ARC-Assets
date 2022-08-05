@@ -279,8 +279,8 @@ const Content = ({
     };
     const taxonomy = () => {
       if (showSecondarySection) {
-        const primarySection = story.taxonomy?.primary_section?._id;
-        const secondarySections = story.taxonomy?.sections
+        const primarySection = story.taxonomy.primary_section._id;
+        const secondarySections = story.taxonomy.sections
           .filter(item => {
             return (
               item._id !== primarySection &&
