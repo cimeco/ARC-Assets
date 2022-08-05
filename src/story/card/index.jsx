@@ -31,6 +31,7 @@ function Card({
   showPublishingTime,
   showReadMore,
   showRibbon,
+  showSecondarySection,
   showTag,
   showTaxonomy,
   showSubheadline,
@@ -96,6 +97,7 @@ function Card({
     showTag,
     showTaxonomy,
     showSubheadline,
+    showSecondarySection,
     showReadMore,
     target,
     taxonomyLevel,
@@ -195,6 +197,7 @@ Card.defaultProps = {
   invertTaxonomyAuthor: false,
   className: '',
   showReadMore: false,
+  showSecondarySection: false,
   utm: ''
 };
 

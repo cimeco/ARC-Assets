@@ -27,9 +27,10 @@ const Content = ({
   showAuthorInfo,
   showPublishingTime,
   showRibbon,
+  showSecondarySection,
   showSubheadline,
   showTag,
-  showTaxonomy,
+  showTaxonomy,  
   showReadMore = false,
   cardIndex,
   invertTaxonomyAuthor,
@@ -186,7 +187,7 @@ const Content = ({
           }
         />
       );
-    };
+    };    
     const index = () => {
       return (
         <Fragment>
@@ -305,7 +306,30 @@ const Content = ({
             }
           />
         );
-
+      if (showSecondarySection) {
+        const primarySection = article.taxonomy.primary_section._id;
+        const secondarySections = article.taxonomy.sections
+          .filter(item => {
+            return (
+              item._id !== primarySection &&
+              item._id !== "/argentina" &&
+              item._id !== "/mexico"
+            );
+          })
+          .map(item => {
+            return item;
+          });
+        return (
+          <Headline
+          text={secondarySections.name[0]}
+          level={taxonomyLevel}
+          targetBlank={target || undefined}
+          classes="article-section"
+          linkClasses={linkClasses}
+          url={showTag && hasTags ? `${secondarySections._id[0]}` : ""}
+        />
+        )
+      }
       return (
         showTaxonomy &&
         (taxonomyName &&
@@ -388,6 +412,7 @@ Content.propTypes = {
   showPrimarySection: PropTypes.bool,
   showPublishingTime: PropTypes.bool,
   showRibbon: PropTypes.bool,
+  showSecondarySection: PropTypes.bool,
   showSubheadline: PropTypes.bool,
   showReadMore: PropTypes.bool,
   showTag: PropTypes.bool,
