@@ -307,8 +307,8 @@ const Content = ({
           />
         );
       if (showSecondarySection) {
-        const primarySection = article.taxonomy.primary_section._id;
-        const secondarySections = article.taxonomy.sections
+        const primarySection = story.taxonomy?.primary_section?._id;
+        const secondarySections = story.taxonomy?.sections
           .filter(item => {
             return (
               item._id !== primarySection &&
