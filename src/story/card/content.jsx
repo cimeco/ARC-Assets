@@ -321,12 +321,12 @@ const Content = ({
           });
         return (
           <Headline
-          text={secondarySections.name[0]}
+          text={secondarySections[0].name}
           level={taxonomyLevel}
           targetBlank={target || undefined}
           classes="article-section"
           linkClasses={linkClasses}
-          url={showTag && hasTags ? `${secondarySections._id[0]}` : ""}
+          url={showTag && hasTags ? `${secondarySections[0]._id}` : ""}
         />
         )
       }
