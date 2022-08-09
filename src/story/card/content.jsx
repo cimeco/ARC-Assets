@@ -298,7 +298,7 @@ const Content = ({
           targetBlank={target || undefined}
           classes="article-section"
           linkClasses={linkClasses}
-          url={showTag && hasTags ? `${secondarySections[0]?._id}` : ""}
+          url={secondarySections[0]?._id}
         />
         )
       }
