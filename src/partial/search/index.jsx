@@ -1,55 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { useFusionContext } from "fusion:context";
 
-//desde ARC utils
-// import getUrlBySite from '../../../util/getUrlBySite';
-// import getImage from '../../../util/getImage';
-
-//a revisar
-// import CImage from '../../common/CImage';
+ import CImage from '../../../src/story/CImage';
+ import { getImage, getUrlBySite } from '@cimeco/utils';
 
 //css adefinir
 
 function Search() {
   //a revisar
-  //const { arcSite, deployment, contextPath } = useFusionContext();
+  const { arcSite, deployment, contextPath } = useFusionContext();
   return (
     <>
       <form
-        className="flex search p2 justify-center"
-        // action={getUrlBySite(contextPath, `/busqueda/`, arcSite)}
+        className="flex search justify-center button-main-search button-search rounded flex items-center ml1"
+        action={getUrlBySite(contextPath, `/busqueda/`, arcSite)}
         method="get"
         target="_top"
-        id="search-form-big"
+        id="search-form-small"
       >
-        <input type="hidden" name="_website" value={'search '} />{' '}
-        {/* value={arcSite} */}
+        <button className="button" type="submit">
+          <CImage
+            src={getImage(
+              arcSite,
+              contextPath,
+              deployment,
+              "/images/icons/search.svg"
+            )}
+            alt="buscar"
+            width="12px"
+            height="14px"
+            className="search"
+            ampLayout="fixed"
+          />
+        </button>
+        <input type="hidden" name="_website" value={arcSite} />
         <input
           type="text"
-          className="p1"
+          id="search-input-small"
+          className="p1 search-input"
           placeholder="BUSCAR"
-          id="search-input-big"
         />
-        <button className="btn" type="submit">
-          <div className="material-icons">
-            {' '}
-            {/* <CImage
-              src={getImage(
-                arcSite,
-                contextPath,
-                deployment,
-                '/images/icons/search.svg',
-                true
-              )}
-              // alt="buscar"
-              width="18px"
-              height="20px"
-              className="search"
-              ampLayout="fixed"
-            /> */}
-          </div>
-        </button>
       </form>
       {/* //revisar */}
       {/* <script src={deployment(`${contextPath}/resources/js/search.min.js`)} /> */}
