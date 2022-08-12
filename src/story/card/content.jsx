@@ -30,7 +30,7 @@ const Content = ({
   showSecondarySection,
   showSubheadline,
   showTag,
-  showTaxonomy,  
+  showTaxonomy,
   showReadMore = false,
   cardIndex,
   invertTaxonomyAuthor,
@@ -187,7 +187,7 @@ const Content = ({
           }
         />
       );
-    };    
+    };
     const index = () => {
       return (
         <Fragment>
@@ -279,28 +279,33 @@ const Content = ({
     };
     const taxonomy = () => {
       if (showSecondarySection) {
-        const primarySection = story.taxonomy.primary_section._id;
+        const primarySection = story?.taxonomy?.primary_section?._id;
         const secondarySections = story.taxonomy.sections
-          .filter(item => {
+          .filter((item) => {
             return (
               item._id !== primarySection &&
-              item._id !== "/argentina" &&
-              item._id !== "/mexico"
+              item._id !== '/argentina' &&
+              item._id !== '/mexico'
             );
           })
-          .map(item => {
+          .map((item) => {
             return item;
           });
-        return (
-          <Headline
-          text={secondarySections[0]?.name}
-          level={taxonomyLevel}
-          targetBlank={target || undefined}
-          classes="article-section"
-          linkClasses={linkClasses}
-          url={secondarySections[0]?._id}
-        />
-        )
+        if (
+          _.isArray(secondarySections) &&
+          !_.isUndefined(secondarySections[0])
+        ) {
+          return (
+            <Headline
+              text={secondarySections[0]?.name}
+              level={taxonomyLevel}
+              targetBlank={target || undefined}
+              classes="article-section"
+              linkClasses={linkClasses}
+              url={secondarySections[0]?._id}
+            />
+          );
+        }
       }
       if (
         showTaxonomy &&
@@ -329,7 +334,7 @@ const Content = ({
                   )
             }
           />
-        );     
+        );
       return (
         showTaxonomy &&
         (taxonomyName &&
@@ -347,7 +352,6 @@ const Content = ({
           <Fragment />
         ))
       );
-      
     };
 
     const byDefault = () => {
