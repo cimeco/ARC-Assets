@@ -29,10 +29,10 @@ const Menu = ({ sectionSlug, mainMenu, navClass, sectionUri }) => {
                     } ${sectionUri === item.url ? "active" : ""}`}
                   >
                   {item.title || item.name}
-                  {item.sub.length > 8 ? (
+                  {item.sub && item.sub.length > 8 ? (
                   <div className="double-menu">  
                     <ul className="drop-down fixed">
-                    {item?.sub?.slice(0,Math.ceil(item.sub.length / 2)).map((item, index) => {
+                    {item.sub.slice(0,Math.ceil(item.sub.length / 2)).map((item, index) => {
                           return (
                             <a
                               href={getUrlBySite(
@@ -51,7 +51,7 @@ const Menu = ({ sectionSlug, mainMenu, navClass, sectionUri }) => {
                       }
                   </ul>
                   <ul className="drop-down fixed">
-                  {item?.sub?.slice(Math.ceil(item.sub.length / 2)).map((item, index) => {
+                  {item.sub.slice(Math.ceil(item.sub.length / 2)).map((item, index) => {
                         return (
                           <a
                             href={getUrlBySite(
