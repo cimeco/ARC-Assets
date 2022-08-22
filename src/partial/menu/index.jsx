@@ -23,12 +23,54 @@ const Menu = ({ sectionSlug, mainMenu, navClass, sectionUri }) => {
                 target={item.external && "_blank"}
                 rel={item.external && "noreferrer"}
               >
-                <li
-                  className={`line pb1 ${
-                    index < mainMenu.length - 1 ? "mr2" : ""
-                  } ${sectionUri === item.url ? "active" : ""}`}
-                >
+                  <li
+                    className={`line pb1 ${
+                      index < mainMenu.length - 1 ? "mr2" : ""
+                    } ${sectionUri === item.url ? "active" : ""}`}
+                  >
                   {item.title || item.name}
+                  {item.sub.length > 8 ? (
+                  <div className="double-menu">  
+                    <ul className="drop-down fixed">
+                    {item?.sub?.slice(0,7).map((item, index) => {
+                          return (
+                            <a
+                              href={getUrlBySite(
+                                contextPath,
+                                item.url,
+                                arcSite
+                              )}
+                              key={item.url}
+                              target={item.external && "_blank"}
+                              rel={item.external && "noreferrer"}
+                            >
+                              <li key={index}>{item?.title}</li>
+                            </a>
+                          );
+                        })
+                      }
+                  </ul>
+                  <ul className="drop-down fixed">
+                  {item?.sub?.slice(7).map((item, index) => {
+                        return (
+                          <a
+                            href={getUrlBySite(
+                              contextPath,
+                              item.url,
+                              arcSite
+                            )}
+                            key={item.url}
+                            target={item.external && "_blank"}
+                            rel={item.external && "noreferrer"}
+                          >
+                            <li key={index}>{item?.title}</li>
+                          </a>
+                        );
+                      })
+                    }
+                </ul>
+                </div>
+                  ) : (
                   <ul className="drop-down fixed">
                     {item.sub
                       ? item.sub.map((item, index) => {
@@ -49,6 +91,9 @@ const Menu = ({ sectionSlug, mainMenu, navClass, sectionUri }) => {
                         })
                       : null}
                   </ul>
+
+                  )
+                  }
                 </li>
               </a>
             );
