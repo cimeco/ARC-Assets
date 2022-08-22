@@ -32,7 +32,7 @@ const Menu = ({ sectionSlug, mainMenu, navClass, sectionUri }) => {
                   {item.sub.length > 8 ? (
                   <div className="double-menu">  
                     <ul className="drop-down fixed">
-                    {item?.sub?.slice(0,parseInt(item.sub.length / 2)+ 1).map((item, index) => {
+                    {item?.sub?.slice(0,Math.ceil(item.sub.length / 2)).map((item, index) => {
                           return (
                             <a
                               href={getUrlBySite(
@@ -51,7 +51,7 @@ const Menu = ({ sectionSlug, mainMenu, navClass, sectionUri }) => {
                       }
                   </ul>
                   <ul className="drop-down fixed">
-                  {item?.sub?.slice(parseInt(item.sub.length / 2)+ 1).map((item, index) => {
+                  {item?.sub?.slice(Math.ceil(item.sub.length / 2)).map((item, index) => {
                         return (
                           <a
                             href={getUrlBySite(
