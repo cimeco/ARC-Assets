@@ -126,10 +126,14 @@ const Content = ({
                           `/autor/${author._id}`,
                           arcSite
                         )}
-                        title={author.additional_properties.original.byline}
+                        title={
+                          author.additional_properties?.original?.byline ||
+                          author.byline
+                        }
                         key={key}
                       >
-                        {author.additional_properties.original.byline +
+                        {(author.additional_properties?.original?.byline ||
+                          author.byline) +
                           (story.credits.by.length - 1 !== key ? ', ' : '')}
                       </a>
                     );
