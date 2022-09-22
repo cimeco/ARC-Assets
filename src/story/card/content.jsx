@@ -284,7 +284,11 @@ const Content = ({
     };
     const taxonomy = () => {
       if (showSite) {
-        const siteName = properties?.site?.name;
+        const lavozSite =
+        article?.taxonomy?.primary_section?._website === "la-voz" ? "La Voz del Interior" : "";
+        const losAndesSite =
+        article?.taxonomy?.primary_section?._website === "los-andes" ? "Los Andes" : "";
+        const siteName = lavozSite === "" ? losAndesSite : lavozSite;
         return (
           <Headline
             text={siteName}
