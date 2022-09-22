@@ -1,6 +1,6 @@
 {
   "name": "@cimeco/arc-assets",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "description": "Feature Card for ARC",
   "main": "index.js",
   "scripts": {
