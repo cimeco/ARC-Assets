@@ -32,6 +32,7 @@ function Card({
   showReadMore,
   showRibbon,
   showSecondarySection,
+  showSite,
   showTag,
   showTaxonomy,
   showSubheadline,
@@ -98,6 +99,7 @@ function Card({
     showTaxonomy,
     showSubheadline,
     showSecondarySection,
+    showSite,
     showReadMore,
     target,
     taxonomyLevel,
@@ -198,6 +200,7 @@ Card.defaultProps = {
   className: '',
   showReadMore: false,
   showSecondarySection: false,
+  showSite: false,
   utm: ''
 };
 

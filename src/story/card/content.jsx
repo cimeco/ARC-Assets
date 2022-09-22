@@ -28,6 +28,7 @@ const Content = ({
   showPublishingTime,
   showRibbon,
   showSecondarySection,
+  showSite,
   showSubheadline,
   showTag,
   showTaxonomy,
@@ -282,6 +283,19 @@ const Content = ({
       return null;
     };
     const taxonomy = () => {
+      if (showSite) {
+        const siteName = properties?.site?.name;
+        return (
+          <Headline
+            text={siteName}
+            level={taxonomyLevel}
+            targetBlank={target || undefined}
+            classes="article-section"
+            linkClasses={linkClasses}
+            url={showTag && hasTags ? `/temas/${taxonomyUrl}` : taxonomyUrl}
+          />
+        );
+      }
       if (showSecondarySection) {
         const primarySection = story?.taxonomy?.primary_section?._id;
         const secondarySections = story.taxonomy.sections
@@ -422,6 +436,7 @@ Content.propTypes = {
   showPublishingTime: PropTypes.bool,
   showRibbon: PropTypes.bool,
   showSecondarySection: PropTypes.bool,
+  showSite: PropTypes.bool,
   showSubheadline: PropTypes.bool,
   showReadMore: PropTypes.bool,
   showTag: PropTypes.bool,
