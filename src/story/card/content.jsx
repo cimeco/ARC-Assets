@@ -73,6 +73,9 @@ const Content = ({
     }
   }
   const _isAmp = properties.site.isAlwaysAmp || isAmp(requestUri);
+  const match = _.filter(story.content_elements, c => {
+    return c.type === "custom_embed" && c.subtype === "DF";
+  });
 
   const getContentElement = (element) => {
     const authorInfo = () => {
@@ -375,6 +378,53 @@ const Content = ({
         ))
       );
     };
+    const minuteByMinute = () => {
+      const channel = _.first(match)?.embed?.config?.partido?.canal;
+      const idPartido = _.first(match)?.embed?.config?.partido?.id;
+      return (
+        channel &&
+        !_isAmp && (
+          <df-widget widget="card" channel={channel} className="mam">
+            <section
+              id="mamDataFactory"
+              style={{ display: "none" }}
+              className="mx1 py2 mamDataFactory"
+            >
+              <div id={`mam-${idPartido}`} className="mam">
+                <div className="flex justify-center">
+                  <article id="team1" className="team col-5">
+                    <div className="flex align-center flex-end">
+                      <img
+                        src="%escudo_team_1%"
+                        alt="banderaTeam1"
+                        className="pr2"
+                      />
+                      <h2>%local%</h2>
+                      <p className="result">%resultado_team_1%</p>
+                    </div>
+                    <div id="goles_team1"></div>
+                  </article>
+                  <p className="vs p2">VS</p>
+                  <article id="team2" className="team col-5">
+                    <div className="flex align-center">
+                      <p className="result">%resultado_team_2%</p>
+                      <h2>%visitante%</h2>
+                      <img
+                        src="%escudo_team_2%"
+                        alt="banderaTeam2"
+                        className="pl2"
+                      />
+                    </div>
+                    <div id="goles_team2"></div>
+                  </article>
+                </div>
+              </div>
+            </section>
+          </df-widget>
+        )
+      );
+    };
+
 
     const byDefault = () => {
       return <Fragment>Element doesn&apos;t exists</Fragment>;
@@ -389,6 +439,7 @@ const Content = ({
       subheadline,
       authorInfo,
       premium,
+      minuteByMinute,
       readMore,
       byDefault
     };

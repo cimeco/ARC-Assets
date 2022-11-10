@@ -172,6 +172,7 @@ Card.defaultProps = {
     'headline',
     'subheadline',
     'authorInfo',
+    'minuteByMinute',
     'premium',
     'readMore'
   ],
