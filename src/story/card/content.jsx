@@ -43,7 +43,7 @@ const Content = ({
   const { arcSite, contextPath, requestUri } = useFusionContext();
   const properties = getProperties(arcSite);
   const { tagsRibbon } = properties;
-  const volanta = article.editor_note;
+  const volanta = story.editor_note;
   const hasTags =
     story.taxonomy?.tags?.filter((tag) => {
       return !properties.content?.hiddenTags?.includes(tag.slug);
