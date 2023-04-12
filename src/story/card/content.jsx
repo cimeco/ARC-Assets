@@ -22,6 +22,7 @@ const Content = ({
   contentElementsOrder,
   headlineLevel,
   taxonomyLevel,
+  showFlywheel,
   imagePosition,
   linkClasses,
   showAuthorInfo,
@@ -42,6 +43,7 @@ const Content = ({
   const { arcSite, contextPath, requestUri } = useFusionContext();
   const properties = getProperties(arcSite);
   const { tagsRibbon } = properties;
+  const volanta = article.editor_note;
   const hasTags =
     story.taxonomy?.tags?.filter((tag) => {
       return !properties.content?.hiddenTags?.includes(tag.slug);
@@ -366,7 +368,7 @@ const Content = ({
         !properties.content?.hiddenTags?.includes(taxonomyName) &&
         !_.isEmpty(taxonomyName) ? (
           <Headline
-            text={taxonomyName}
+            text={showFlywheel ? volanta : taxonomyName}
             level={taxonomyLevel}
             targetBlank={target || undefined}
             classes="article-section"
@@ -496,7 +498,8 @@ Content.propTypes = {
   showReadMore: PropTypes.bool,
   showTag: PropTypes.bool,
   showTaxonomy: PropTypes.bool,
-  taxonomyLevel: PropTypes.oneOf([1, 2, 3, 4, 5, 6])
+  taxonomyLevel: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
+  showFlywheel: PropTypes.bool
 };
 
 export default Content;
