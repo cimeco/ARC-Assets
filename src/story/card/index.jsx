@@ -38,6 +38,7 @@ function Card({
   showSubheadline,
   target,
   taxonomyLevel,
+  showFlywheel,
   utm
 }) {
   /* Class Names */
@@ -103,6 +104,7 @@ function Card({
     showReadMore,
     target,
     taxonomyLevel,
+    showFlywheel,
     utm
   };
 
@@ -178,6 +180,7 @@ Card.defaultProps = {
   ],
   headlineLevel: 2,
   taxonomyLevel: 3,
+  showFlywheel: false,
   headlineStyleSize: 3,
   imageHeight: 173,
   imageLayout: 'responsive',
