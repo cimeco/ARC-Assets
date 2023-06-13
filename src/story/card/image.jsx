@@ -7,6 +7,7 @@ import {
   getImagePathData,
   getUrl,
   isPremium,
+  isVideo,
   resizeImage
 } from '@cimeco/utils/src/story';
 import { getImage, getUrlBySite } from '@cimeco/utils';
@@ -125,6 +126,7 @@ const Image = ({
       }`}
     >
       {isPremium(story) ? <div className="premium-article-tag" /> : null}
+      {isVideo(story) ? <div className="video-article-tag" /> : null}
       {showImage && !_.isNil(imageResizedUrl) && !_.isEmpty(imageResizedUrl) && (
         <a
           href={url}

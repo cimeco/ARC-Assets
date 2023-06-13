@@ -59,7 +59,7 @@ function Card({
     _.partial(pushWhen, _, fullCardLink, 'full-card-link'),
     _.partial(pushWhen, _, _.has(story, 'subtype'), _.get(story, 'subtype')),
     _.partial(pushWhen, _, isPremium(story), 'premium'),
-    _.partial(pushWhen, _, isVideo(story), 'video-tag'),
+    _.partial(pushWhen, _, isVideo(story), 'video-card'),
     joinWithSpaces
   )(['article']);
 
