@@ -6,6 +6,7 @@ import Icon from './icon.jsx';
 import Image from './image.jsx';
 import { pushWhen } from '@cimeco/utils';
 import { isPremium } from '@cimeco/utils/src/story';
+import { isVideo } from '@cimeco/utils/src/story';
 
 function Card({
   story,
@@ -58,6 +59,7 @@ function Card({
     _.partial(pushWhen, _, fullCardLink, 'full-card-link'),
     _.partial(pushWhen, _, _.has(story, 'subtype'), _.get(story, 'subtype')),
     _.partial(pushWhen, _, isPremium(story), 'premium'),
+    _.partial(pushWhen, _, isVideo(story), 'video-tag'),
     joinWithSpaces
   )(['article']);
 
