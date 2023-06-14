@@ -11,7 +11,8 @@ import {
   getTaxonomyData,
   getTaxonomyPathData,
   getUrl,
-  isPremium
+  isPremium,
+  isVideo
 } from '@cimeco/utils/src/story';
 import AmpTimeAgo from '../../partial/amp-time-ago';
 import Headline from '@cimeco/ui/src/headline';
@@ -214,6 +215,17 @@ const Content = ({
         <Fragment>
           {isPremium(story) ? (
             <div className="premium-article-text">Sólo suscriptores</div>
+          ) : (
+            <Fragment />
+          )}
+        </Fragment>
+      );
+    };
+    const videoCard = () => {
+      return (
+        <Fragment>
+          {isVideo(story) ? (
+            <div className="video-article-text"></div>
           ) : (
             <Fragment />
           )}
@@ -441,6 +453,7 @@ const Content = ({
       subheadline,
       authorInfo,
       premium,
+      videoCard,
       minuteByMinute,
       readMore,
       byDefault
