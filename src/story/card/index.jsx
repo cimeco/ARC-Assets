@@ -178,6 +178,7 @@ Card.defaultProps = {
     'authorInfo',
     'minuteByMinute',
     'premium',
+    "video-card",
     'readMore'
   ],
   headlineLevel: 2,
