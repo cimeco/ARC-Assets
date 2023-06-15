@@ -221,17 +221,17 @@ const Content = ({
         </Fragment>
       );
     };
-    const videoCard = () => {
-      return (
-        <Fragment>
-          {isVideo(story) ? (
-            <div className="video-article-text"></div>
-          ) : (
-            <Fragment />
-          )}
-        </Fragment>
-      );
-    };
+    // const videoCard = () => {
+    //   return (
+    //     <Fragment>
+    //       {isVideo(story) ? (
+    //         <div className="video-article-text"></div>
+    //       ) : (
+    //         <Fragment />
+    //       )}
+    //     </Fragment>
+    //   );
+    // };
     const publishingTime = () => {
       moment.locale('es');
       const now = moment(new Date())
@@ -453,7 +453,7 @@ const Content = ({
       subheadline,
       authorInfo,
       premium,
-      videoCard,
+      // videoCard,
       minuteByMinute,
       readMore,
       byDefault
