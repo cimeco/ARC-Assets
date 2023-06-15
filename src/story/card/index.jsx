@@ -59,7 +59,7 @@ function Card({
     _.partial(pushWhen, _, fullCardLink, 'full-card-link'),
     _.partial(pushWhen, _, _.has(story, 'subtype'), _.get(story, 'subtype')),
     _.partial(pushWhen, _, isPremium(story), 'premium'),
-    _.partial(pushWhen, _, isVideo(story), 'video-card'),
+    _.partial(pushWhen, _, isVideo(story), 'videoCard'),
     joinWithSpaces
   )(['article']);
 
@@ -178,7 +178,7 @@ Card.defaultProps = {
     'authorInfo',
     'minuteByMinute',
     'premium',
-    "video-card",
+    "videoCard",
     'readMore'
   ],
   headlineLevel: 2,

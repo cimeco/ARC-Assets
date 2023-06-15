@@ -126,7 +126,7 @@ const Image = ({
       }`}
     >
       {isPremium(story) ? <div className="premium-article-tag" /> : null}
-      {/* {isVideo(story) ? <div className="video-article-tag" /> : null} */}
+      {isVideo(story) ? <div className="video-article-tag" /> : null}
       {showImage && !_.isNil(imageResizedUrl) && !_.isEmpty(imageResizedUrl) && (
         <a
           href={url}
