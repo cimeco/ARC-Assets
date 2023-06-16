@@ -441,7 +441,7 @@ const Content = ({
 
 
     const byDefault = () => {
-      return <Fragment>Element doesn&apos;t exists</Fragment>;
+      return <Fragment></Fragment>;
     };
 
     const contentElements = {
