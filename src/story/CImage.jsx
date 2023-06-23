@@ -78,15 +78,29 @@ const CImage = ({
         ) : (
           <>
             {forceImg ? (
+              <picture>
+              {srcset &&
+                Object.keys(srcset).map((breakpoint, key) => {
+                  return (
+                    <source
+                      key={key}
+                      media={`(${srcset[breakpoint].media}: ${breakpoint}px)`}
+                      srcSet={`${srcset[breakpoint].url}`}
+                    />
+                  );
+                })}
               <img
                 alt={alt}
                 className={`block ${className}`}
                 src={src || placeholder}
                 sizes={sizes || 'auto'}
+                loading={isPromo || Importance ? 'lazy' : 'eager'}
                 srcSet={srcset}
                 width={width ? `${_.trim(`${width}`, 'px')}px` : undefined}
                 data-hero={isPromo || dataHero ? '' : undefined}
                 importance={isPromo || Importance ? 'high' : undefined}
+                fetchpriority={isPromo || Importance ? "high" : "low"}
+                decoding={isPromo || Importance ? "sync" : "async"}
                 height={
                   height
                     ? width
@@ -96,17 +110,32 @@ const CImage = ({
                 }
                 onError={addDefaultSrc}
               />
+              </picture>
             ) : (
+              <picture>
+                {srcset &&
+                  Object.keys(srcset).map((breakpoint, key) => {
+                    return (
+                      <source
+                        key={key}
+                        media={`(${srcset[breakpoint].media}: ${breakpoint}px)`}
+                        srcSet={`${srcset[breakpoint].url}`}
+                      />
+                    );
+                  })}
               <img
                 alt={alt}
                 className={`lazyload block ${className}`}
                 src={placeholder}
                 sizes={sizes || 'auto'}
+                loading={isPromo || Importance ? 'lazy' : 'eager'}
                 data-src={src}
                 data-srcset={srcset}
                 width={width ? `${_.trim(`${width}`, 'px')}px` : undefined}
                 data-hero={isPromo || dataHero ? '' : undefined}
                 importance={isPromo || Importance ? 'high' : undefined}
+                fetchpriority={isPromo || Importance ? "high" : "low"}
+                decoding={isPromo || Importance ? "sync" : "async"}
                 height={
                   height
                     ? width
@@ -116,6 +145,7 @@ const CImage = ({
                 }
                 onError={addDefaultSrc}
               />
+              </picture>
             )}
             {fallback ? (
               <div id={fallbackId} className="hide" fallback={true}>
