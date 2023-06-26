@@ -77,24 +77,13 @@ const CImage = ({
           />
         ) : (
           <>
-            {forceImg ? (
-              <picture>
-              {srcset &&
-                Object.keys(srcset).map((breakpoint, key) => {
-                  return (
-                    <source
-                      key={key}
-                      media={`(${srcset[breakpoint].media}: ${breakpoint}px)`}
-                      srcSet={`${srcset[breakpoint].url}`}
-                    />
-                  );
-                })}
+            {forceImg ? (            
               <img
                 alt={alt}
                 className={`block ${className}`}
                 src={src || placeholder}
                 sizes={sizes || 'auto'}
-                loading={isPromo || Importance ? 'lazy' : 'eager'}
+                loading={isPromo || Importance ? 'eager' : 'lazy'}
                 srcSet={srcset}
                 width={width ? `${_.trim(`${width}`, 'px')}px` : undefined}
                 data-hero={isPromo || dataHero ? '' : undefined}
@@ -109,26 +98,14 @@ const CImage = ({
                     : '100%'
                 }
                 onError={addDefaultSrc}
-              />
-              </picture>
-            ) : (
-              <picture>
-                {srcset &&
-                  Object.keys(srcset).map((breakpoint, key) => {
-                    return (
-                      <source
-                        key={key}
-                        media={`(${srcset[breakpoint].media}: ${breakpoint}px)`}
-                        srcSet={`${srcset[breakpoint].url}`}
-                      />
-                    );
-                  })}
+              />              
+            ) : (         
               <img
                 alt={alt}
                 className={`lazyload block ${className}`}
                 src={placeholder}
                 sizes={sizes || 'auto'}
-                loading={isPromo || Importance ? 'lazy' : 'eager'}
+                loading={isPromo || Importance ? 'eager' : 'lazy'}
                 data-src={src}
                 data-srcset={srcset}
                 width={width ? `${_.trim(`${width}`, 'px')}px` : undefined}
@@ -144,8 +121,7 @@ const CImage = ({
                     : '100%'
                 }
                 onError={addDefaultSrc}
-              />
-              </picture>
+              />              
             )}
             {fallback ? (
               <div id={fallbackId} className="hide" fallback={true}>
