@@ -102,8 +102,8 @@ const CImage = ({
             ) : (         
               <img
                 alt={alt}
-                className={`lazyload block ${className}`}
-                src={placeholder}
+                className={` block ${className}`}
+                src={src || placeholder}
                 sizes={sizes || 'auto'}
                 loading={isPromo || Importance ? 'eager' : 'lazy'}
                 data-src={src}
