@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import moment from 'moment';
-import 'moment-timezone';
+import { DateTime } from 'luxon';
 import { useFusionContext } from 'fusion:context';
 import getProperties from 'fusion:properties';
 import { getUrlBySite, isAmp } from '@cimeco/utils';
@@ -233,21 +232,10 @@ const Content = ({
       );
     };
     const publishingTime = () => {
-      moment.locale('es');
-      const now = moment(new Date())
-        .tz(
-          (properties.site && properties.site.timezone) ||
-            'America/Argentina/Buenos_Aires'
-        )
-        .clone();
-      const end = moment(story.display_date)
-        .tz(
-          (properties.site && properties.site.timezone) ||
-            'America/Argentina/Buenos_Aires'
-        )
-        .clone();
-      const duration = moment.duration(now.diff(end));
-      const hours = duration.asHours();
+      const timezone = (properties.site && properties.site.timezone) || 'America/Argentina/Buenos_Aires';
+      const now = DateTime.now().setZone(timezone);
+      const end = DateTime.fromJSDate(new Date(story.display_date)).setZone(timezone);
+      const duration = now.diff(end, 'hours').hours;
       return (
         <Fragment>
           {showPublishingTime ? (
@@ -256,11 +244,11 @@ const Content = ({
                 <AmpTimeAgo datetime={story.display_date} />
               ) : (
                 <span>
-                  {hours <= 0
+                  {duration <= 0
                     ? 'HOY'
-                    : hours <= 24
-                    ? end.fromNow()
-                    : end.format('DD-MM-YYYY')}
+                    : duration <= 24
+                    ? end.toRelative()
+                    : end.toFormat('DD-MM-YYYY')}
                 </span>
               )}
             </div>
