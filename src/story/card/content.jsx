@@ -13,10 +13,10 @@ import {
   isPremium,
   isVideo
 } from '@cimeco/utils/src/story';
-import AmpTimeAgo from '../../partial/amp-time-ago';
 import Headline from '@cimeco/ui/src/headline';
+import AmpTimeAgo from '../../partial/amp-time-ago';
 
-const Content = ({
+function Content({
   story,
   contentClasses,
   contentElementsOrder,
@@ -39,15 +39,15 @@ const Content = ({
   fullCardLink,
   target,
   utm
-}) => {
+}) {
   const { arcSite, contextPath, requestUri } = useFusionContext();
   const properties = getProperties(arcSite);
   const { tagsRibbon } = properties;
   const volanta = story.editor_note;
   const hasTags =
-    story.taxonomy?.tags?.filter((tag) => {
-      return !properties.content?.hiddenTags?.includes(tag.slug);
-    }).length > 0;
+    story.taxonomy?.tags?.filter(
+      (tag) => !properties.content?.hiddenTags?.includes(tag.slug)
+    ).length > 0;
   // eslint-disable-next-line prefer-const
   let { taxonomyName, taxonomyUrl } = _.flow([
     getTaxonomyPathData,
@@ -75,9 +75,10 @@ const Content = ({
     }
   }
   const _isAmp = properties.site.isAlwaysAmp || isAmp(requestUri);
-  const match = _.filter(story.content_elements, c => {
-    return c.type === "custom_embed" && c.subtype === "DF";
-  });
+  const match = _.filter(
+    story.content_elements,
+    (c) => c.type === 'custom_embed' && c.subtype === 'DF'
+  );
 
   const getContentElement = (element) => {
     const authorInfo = () => {
@@ -107,15 +108,15 @@ const Content = ({
         );
       }
       return (
-        <Fragment>
+        <>
           {showAuthorInfo &&
           !_.isUndefined(story.credits) &&
           !_.isUndefined(story.credits.by) ? (
-            <Fragment>
+            <>
               {story.credits.by.length > 0 ? (
                 <div className="article-author">
-                  {story.credits.by.map((author, key) => {
-                    return _.isUndefined(author._id) ? (
+                  {story.credits.by.map((author, key) =>
+                    _.isUndefined(author._id) ? (
                       <span
                         className={linkClasses}
                         title={author.name}
@@ -142,17 +143,17 @@ const Content = ({
                           author.byline) +
                           (story.credits.by.length - 1 !== key ? ', ' : '')}
                       </a>
-                    );
-                  })}
+                    )
+                  )}
                 </div>
               ) : (
-                <Fragment />
+                <></>
               )}
-            </Fragment>
+            </>
           ) : (
-            <Fragment />
+            <></>
           )}
-        </Fragment>
+        </>
       );
     };
     const readMore = () => {
@@ -173,7 +174,7 @@ const Content = ({
       // eslint-disable-next-line camelcase
       let url = getUrlBySite(contextPath, getUrl(story, arcSite), arcSite);
       if (utm) {
-        url = url + utm;
+        url += utm;
       }
 
       return (
@@ -198,46 +199,32 @@ const Content = ({
         />
       );
     };
-    const index = () => {
-      return (
-        <Fragment>
-          {cardIndex ? (
-            <h2 className="card-index">{cardIndex}</h2>
-          ) : (
-            <Fragment />
-          )}
-        </Fragment>
-      );
-    };
-    const premium = () => {
-      return (
-        <Fragment>
-          {isPremium(story) ? (
-            <div className="premium-article-text">Sólo suscriptores</div>
-          ) : (
-            <Fragment />
-          )}
-        </Fragment>
-      );
-    };
-    const videoCard = () => {
-      return (
-        <Fragment>
-          {isVideo(story) ? (
-            <div className="video-article-text"></div>
-          ) : (
-            <Fragment />
-          )}
-        </Fragment>
-      );
-    };
+    const index = () => (
+      <>{cardIndex ? <h2 className="card-index">{cardIndex}</h2> : <></>}</>
+    );
+    const premium = () => (
+      <>
+        {isPremium(story) ? (
+          <div className="premium-article-text">Sólo suscriptores</div>
+        ) : (
+          <></>
+        )}
+      </>
+    );
+    const videoCard = () => (
+      <>{isVideo(story) ? <div className="video-article-text" /> : <></>}</>
+    );
     const publishingTime = () => {
-      const timezone = (properties.site && properties.site.timezone) || 'America/Argentina/Buenos_Aires';
+      const timezone =
+        (properties.site && properties.site.timezone) ||
+        'America/Argentina/Buenos_Aires';
       const now = DateTime.now().setZone(timezone);
-      const end = DateTime.fromJSDate(new Date(story.display_date)).setZone(timezone);
+      const end = DateTime.fromJSDate(new Date(story.display_date)).setZone(
+        timezone
+      );
       const duration = now.diff(end, 'hours').hours;
       return (
-        <Fragment>
+        <>
           {showPublishingTime ? (
             <div className="uppercase secondary-color bold h6 inline-block date">
               {_isAmp ? (
@@ -248,33 +235,29 @@ const Content = ({
                     ? 'HOY'
                     : duration <= 24
                     ? end.toRelative()
-                    : end.toFormat('DD-MM-YYYY')}
+                    : end.toFormat('dd-LL-yyyy')}
                 </span>
               )}
             </div>
           ) : (
-            <Fragment />
+            <></>
           )}
-        </Fragment>
+        </>
       );
     };
-    const ribbons = () => {
-      return (
-        <Fragment>
-          {showRibbon ? (
-            getTagRibbons(tagsRibbon, story).map((item, key) => {
-              return (
-                <span key={key} className="tag">
-                  {item.description}
-                </span>
-              );
-            })
-          ) : (
-            <Fragment />
-          )}
-        </Fragment>
-      );
-    };
+    const ribbons = () => (
+      <>
+        {showRibbon ? (
+          getTagRibbons(tagsRibbon, story).map((item, key) => (
+            <span key={key} className="tag">
+              {item.description}
+            </span>
+          ))
+        ) : (
+          <></>
+        )}
+      </>
+    );
     const subheadline = () => {
       if (showSubheadline) {
         if (!_.isNil(story.description) && !_.isEmpty(story.description.basic))
@@ -290,10 +273,14 @@ const Content = ({
     const taxonomy = () => {
       if (showSite) {
         const lavozSite =
-        story?.taxonomy?.primary_section?._website === "la-voz" ? "La Voz del Interior" : "";
+          story?.taxonomy?.primary_section?._website === 'la-voz'
+            ? 'La Voz del Interior'
+            : '';
         const losAndesSite =
-        story?.taxonomy?.primary_section?._website === "los-andes" ? "Los Andes" : "";
-        const siteName = lavozSite === "" ? losAndesSite : lavozSite;
+          story?.taxonomy?.primary_section?._website === 'los-andes'
+            ? 'Los Andes'
+            : '';
+        const siteName = lavozSite === '' ? losAndesSite : lavozSite;
         return (
           <Headline
             text={siteName}
@@ -308,16 +295,13 @@ const Content = ({
       if (showSecondarySection) {
         const primarySection = story?.taxonomy?.primary_section?._id;
         const secondarySections = story.taxonomy.sections
-          .filter((item) => {
-            return (
+          .filter(
+            (item) =>
               item._id !== primarySection &&
               item._id !== '/argentina' &&
               item._id !== '/mexico'
-            );
-          })
-          .map((item) => {
-            return item;
-          });
+          )
+          .map((item) => item);
         if (
           _.isArray(secondarySections) &&
           !_.isUndefined(secondarySections[0])
@@ -376,7 +360,7 @@ const Content = ({
             url={showTag && hasTags ? `/temas/${taxonomyUrl}` : taxonomyUrl}
           />
         ) : (
-          <Fragment />
+          <></>
         ))
       );
     };
@@ -389,7 +373,7 @@ const Content = ({
           <df-widget widget="card" channel={channel} className="mam">
             <section
               id="mamDataFactory"
-              style={{ display: "none" }}
+              style={{ display: 'none' }}
               className="mx1 py2 mamDataFactory"
             >
               <div id={`mam-${idPartido}`} className="mam">
@@ -404,7 +388,7 @@ const Content = ({
                       <h2>%local%</h2>
                       <p className="result">%resultado_team_1%</p>
                     </div>
-                    <div id="goles_team1"></div>
+                    <div id="goles_team1" />
                   </article>
                   <p className="vs p2">VS</p>
                   <article id="team2" className="team col-5">
@@ -417,7 +401,7 @@ const Content = ({
                         className="pl2"
                       />
                     </div>
-                    <div id="goles_team2"></div>
+                    <div id="goles_team2" />
                   </article>
                 </div>
               </div>
@@ -427,10 +411,7 @@ const Content = ({
       );
     };
 
-
-    const byDefault = () => {
-      return <Fragment></Fragment>;
-    };
+    const byDefault = () => <></>;
 
     const contentElements = {
       ribbons,
@@ -462,21 +443,18 @@ const Content = ({
       >
         {url && fullCardLink ? <a href={url} /> : null}
         {contentElementsOrder
-          .filter((element) => {
-            return (
+          .filter(
+            (element) =>
               element !== 'taxonomy' ||
               (element === 'taxonomy' && imagePosition !== 'back')
-            );
-          })
-          .map((element) => {
-            return (
-              <Fragment key={element}>{getContentElement(element)}</Fragment>
-            );
-          })}
+          )
+          .map((element) => (
+            <Fragment key={element}>{getContentElement(element)}</Fragment>
+          ))}
       </div>
     </>
   );
-};
+}
 
 Content.propTypes = {
   story: PropTypes.object,
