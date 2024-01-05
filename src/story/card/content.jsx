@@ -71,7 +71,7 @@ function Content({
         !_.isUndefined(story.websites[arcSite])
       )
     ) {
-      taxonomyUrl = `${properties2.site.baseUrl}${taxonomyUrl}`;
+      taxonomyUrl = `${properties2.site.baseUrl}${taxonomyUrl}/`;
     }
   }
   const _isAmp = properties.site.isAlwaysAmp || isAmp(requestUri);
@@ -95,7 +95,7 @@ function Content({
               className={linkClasses}
               href={getUrlBySite(
                 contextPath,
-                showTag && hasTags ? `/temas/${taxonomyUrl}` : taxonomyUrl,
+                showTag && hasTags ? `/temas/${taxonomyUrl}/` : taxonomyUrl,
                 arcSite
               )}
               target={target ? '_blank' : undefined}
@@ -130,7 +130,7 @@ function Content({
                         className={linkClasses}
                         href={getUrlBySite(
                           contextPath,
-                          `/autor/${author._id}`,
+                          `/autor/${author._id}/`,
                           arcSite
                         )}
                         title={
@@ -288,7 +288,7 @@ function Content({
             targetBlank={target || undefined}
             classes="article-section"
             linkClasses={linkClasses}
-            url={showTag && hasTags ? `/temas/${taxonomyUrl}` : taxonomyUrl}
+            url={showTag && hasTags ? `/temas/${taxonomyUrl}/` : taxonomyUrl}
           />
         );
       }
@@ -313,7 +313,7 @@ function Content({
               targetBlank={target || undefined}
               classes="article-section"
               linkClasses={linkClasses}
-              url={secondarySections[0]?._id}
+              url={`${secondarySections[0]?._id}/`}
             />
           );
         }
@@ -335,12 +335,12 @@ function Content({
               story.credits.by[0]._id
                 ? getUrlBySite(
                     contextPath,
-                    `/autor/${story.credits.by[0]._id}`,
+                    `/autor/${story.credits.by[0]._id}/`,
                     arcSite
                   )
                 : getUrlBySite(
                     contextPath,
-                    showTag && hasTags ? `/temas/${taxonomyUrl}` : taxonomyUrl,
+                    showTag && hasTags ? `/temas/${taxonomyUrl}/` : taxonomyUrl,
                     arcSite
                   )
             }
@@ -357,7 +357,7 @@ function Content({
             targetBlank={target || undefined}
             classes="article-section"
             linkClasses={linkClasses}
-            url={showTag && hasTags ? `/temas/${taxonomyUrl}` : taxonomyUrl}
+            url={showTag && hasTags ? `/temas/${taxonomyUrl}/` : taxonomyUrl}
           />
         ) : (
           <></>
