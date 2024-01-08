@@ -71,7 +71,7 @@ function Content({
         !_.isUndefined(story.websites[arcSite])
       )
     ) {
-      taxonomyUrl = `${properties2.site.baseUrl}${taxonomyUrl}/`;
+      taxonomyUrl = `${properties2.site.baseUrl}${taxonomyUrl}`;
     }
   }
   const _isAmp = properties.site.isAlwaysAmp || isAmp(requestUri);
@@ -288,7 +288,9 @@ function Content({
             targetBlank={target || undefined}
             classes="article-section"
             linkClasses={linkClasses}
-            url={showTag && hasTags ? `/temas/${taxonomyUrl}/` : taxonomyUrl}
+            url={
+              showTag && hasTags ? `/temas/${taxonomyUrl}/` : `${taxonomyUrl}/`
+            }
           />
         );
       }
@@ -340,7 +342,9 @@ function Content({
                   )
                 : getUrlBySite(
                     contextPath,
-                    showTag && hasTags ? `/temas/${taxonomyUrl}/` : taxonomyUrl,
+                    showTag && hasTags
+                      ? `/temas/${taxonomyUrl}/`
+                      : `${taxonomyUrl}/`,
                     arcSite
                   )
             }
@@ -357,7 +361,9 @@ function Content({
             targetBlank={target || undefined}
             classes="article-section"
             linkClasses={linkClasses}
-            url={showTag && hasTags ? `/temas/${taxonomyUrl}/` : taxonomyUrl}
+            url={
+              showTag && hasTags ? `/temas/${taxonomyUrl}/` : `${taxonomyUrl}/`
+            }
           />
         ) : (
           <></>
