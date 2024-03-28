@@ -296,26 +296,25 @@ function Content({
       }
       if (showSecondarySection) {
         const primarySection = story?.taxonomy?.primary_section?._id;
-        const secondarySections = story.taxonomy.sections
+        const [secondarySection] = story.taxonomy.sections
           .filter(
             (item) =>
               item._id !== primarySection &&
               item._id !== '/argentina' &&
               item._id !== '/mexico'
           )
-          .map((item) => item);
+          .map((item) => item) || [];
         if (
-          _.isArray(secondarySections) &&
-          !_.isUndefined(secondarySections[0])
+          !_.isUndefined(secondarySection)
         ) {
           return (
             <Headline
-              text={secondarySections[0]?.name}
+              text={secondarySection?.name}
               level={taxonomyLevel}
               targetBlank={target || undefined}
               classes="article-section"
               linkClasses={linkClasses}
-              url={`${secondarySections[0]?._id}/`}
+              url={`${secondarySection._id}/`}
             />
           );
         }
