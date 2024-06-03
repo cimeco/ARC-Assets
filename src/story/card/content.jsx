@@ -172,6 +172,15 @@ function Content({
     };
     const headline = () => {
       // eslint-disable-next-line camelcase
+      const {
+        headlines: { basic: headlineBasic } = { basic: "" },
+        label: {
+          volanta: { text: textoVolanta } = {
+            text: undefined,
+          },
+        } = { volanta: {} },
+      } = story;
+
       let url = getUrlBySite(contextPath, getUrl(story, arcSite), arcSite);
       if (utm) {
         url += utm;
@@ -179,7 +188,8 @@ function Content({
 
       return (
         <Headline
-          text={story.headlines?.basic || ''}
+          text={headlineBasic}
+          spanText={textoVolanta}
           level={headlineLevel}
           classes="article-title"
           linkClasses={linkClasses}
