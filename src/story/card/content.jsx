@@ -171,9 +171,8 @@ function Content({
       }
     };
     const headline = () => {
-      // eslint-disable-next-line camelcase
       const {
-        headlines: { basic: headlineBasic } = { basic: "" },
+        headlines: { basic: headlineBasic, web: headlineWeb } = { basic: "", web: undefined },
         label: {
           volanta: { text: textoVolanta } = {
             text: undefined,
@@ -188,7 +187,7 @@ function Content({
 
       return (
         <Headline
-          text={headlineBasic}
+          text={headlineWeb || headlineBasic}
           spanText={textoVolanta}
           level={headlineLevel}
           classes="article-title"
