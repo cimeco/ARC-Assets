@@ -7,7 +7,6 @@ import {
   isPremium,
   isVideo,
 } from '@cimeco/utils/src/story';
-import { getUrlBySite } from '@cimeco/utils';
 import ConditionalWrap from '@cimeco/ui/src/conditional-wrap';
 import UIImage from '../image';
 
