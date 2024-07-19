@@ -28,7 +28,7 @@ import { isAmp } from '@cimeco/utils';
  * @param Importance
  * @param credits
  */
-const CImage = ({
+function CImage({
   alt,
   src,
   width,
@@ -48,7 +48,7 @@ const CImage = ({
   dataHero,
   Importance,
   credits
-}) => {
+}) {
   const { arcSite, requestUri, globalContent } = useFusionContext();
   const properties = getProperties(arcSite);
   const _isAmp = !_.isUndefined(isAmpOverride)
@@ -61,8 +61,7 @@ const CImage = ({
   };
 
   return (
-    <>
-      <figure className={figureClassName}>
+    <figure className={figureClassName}>
         {_isAmp ? (
           <amp-img
             alt={alt}
@@ -88,7 +87,7 @@ const CImage = ({
                 width={width ? `${_.trim(`${width}`, 'px')}px` : undefined}
                 data-hero={isPromo || dataHero ? '' : undefined}
                 importance={isPromo || Importance ? 'high' : undefined}
-                fetchpriority={isPromo || Importance ? "high" : "low"}
+                fetchPriority={isPromo || Importance ? "high" : "low"}
                 decoding={isPromo || Importance ? "sync" : "async"}
                 height={
                   height
@@ -111,7 +110,7 @@ const CImage = ({
                 width={width ? `${_.trim(`${width}`, 'px')}px` : undefined}
                 data-hero={isPromo || dataHero ? '' : undefined}
                 importance={isPromo || Importance ? 'high' : undefined}
-                fetchpriority={isPromo || Importance ? "high" : "low"}
+                fetchPriority={isPromo || Importance ? "high" : "low"}
                 decoding={isPromo || Importance ? "sync" : "async"}
                 height={
                   height
@@ -124,7 +123,7 @@ const CImage = ({
               />              
             )}
             {fallback ? (
-              <div id={fallbackId} className="hide" fallback={true}>
+              <div id={fallbackId} className="hide" fallback>
                 {fallback}
               </div>
             ) : null}
@@ -133,14 +132,13 @@ const CImage = ({
         {showCaption && caption && !_.isEmpty(caption) ? (
           <figcaption className={`${showCaption ? '' : 'hide'}`}>
             {!_.isUndefined(credits) && arcSite === 'via-pais'
-              ? caption + ' ' + 'Foto: ' + credits
+              ? `${caption  } ` + `Foto: ${  credits}`
               : caption}
           </figcaption>
         ) : null}
       </figure>
-    </>
   );
-};
+}
 CImage.defaultProps = {
   alt: '',
   src: undefined,

@@ -1,122 +1,36 @@
 import { useFusionContext } from 'fusion:context';
-import getProperties from 'fusion:properties';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
-  getImagePathData,
   getUrl,
   isPremium,
   isVideo,
-  resizeImage
 } from '@cimeco/utils/src/story';
-import { getImage, getUrlBySite } from '@cimeco/utils';
-import CImage from '../CImage';
+import { getUrlBySite } from '@cimeco/utils';
+import ConditionalWrap from '@cimeco/ui/src/conditional-wrap';
+import UIImage from '../image';
 
-const Image = ({
+function Image({
   story,
   imageHeight,
-  imageLayout,
-  imageRounded,
   imageWidth,
   showAuthorImage,
-  showImage,
-  imageForce,
-  imageSets,
-  imageIndex,
   target,
   utm
-}) => {
-  const { arcSite, contextPath, deployment } = useFusionContext();
-  const properties = getProperties(arcSite);
+}) {
+  const { arcSite, contextPath } = useFusionContext();
   const websiteBlank = story.canonical_website;
   if (websiteBlank !== arcSite) {
     target = true;
   }
 
-  const getImageData = (object) => {
-    const defaultImage = object.showAuthor
-      ? undefined
-      : {
-          url: getImage(
-            arcSite,
-            contextPath,
-            deployment,
-            properties.site.placeholder || '/images/placeholder.png'
-          )
-        };
-    return {
-      image: _.get(object.path, object.imagePath),
-      imageCaption: _.get(object.path, object.captionPath),
-      imageCredits: _.get(object.path, object.creditPath),
-      defaultImage
-    };
-  };
-  const { image, imageCaption, defaultImage, imageCredits } = _.flow([
-    getImagePathData,
-    getImageData
-  ])(story, showAuthorImage);
-
-  const imageResizedUrl =
-    // eslint-disable-next-line no-nested-ternary
-    !_.isNil(image) &&
-    !_.isNil(image.url) &&
-    !image.url.includes('sites/default/files')
-      ? resizeImage(
-          image,
-          {
-            width: imageWidth,
-            height: showAuthorImage ? imageWidth : imageHeight
-          },
-          properties.services.thumbor.url
-        )
-      : !_.isNil(image) && !_.isNil(image.url)
-      ? image.url
-      : (!_.isNil(defaultImage) && defaultImage.url) || '';
-  let srcset = '';
-  let sizes = '';
-  let _imageSets = imageSets;
-  if (_imageSets) {
-    if (!imageSets['0'])
-      _imageSets = {
-        ...imageSets,
-        0: { width: imageWidth, height: imageHeight }
-      };
-    Object.keys(_imageSets)
-      .sort()
-      .reverse()
-      .forEach((breakpoint) => {
-        const url =
-          // eslint-disable-next-line no-nested-ternary
-          !_.isNil(image) &&
-          !_.isNil(image.url) &&
-          !image.url.includes('sites/default/files')
-            ? resizeImage(
-                image,
-                {
-                  width: _imageSets[breakpoint].width,
-                  height: showAuthorImage
-                    ? _imageSets[breakpoint].width
-                    : _imageSets[breakpoint].height
-                },
-                properties.services.thumbor.url
-              )
-            : !_.isNil(image) && !_.isNil(image.url)
-            ? image.url
-            : (!_.isNil(defaultImage) && defaultImage.url) || '';
-
-        srcset += srcset.includes(`${_imageSets[breakpoint].width}w`)
-          ? ''
-          : `${url} ${_imageSets[breakpoint].width}w, `;
-        sizes += `(min-width: ${breakpoint}px) ${_imageSets[breakpoint].width}px, `;
-      });
-    srcset = `${srcset.replace(/,(?=\s*$)/, '')}`;
-    sizes += `${imageWidth}px`;
-  }
+  const image = showAuthorImage ? author.image : promoItemsBasic;
+  const imageCaption = showAuthorImage ? author.name : promoItemsBasic.subtitle;
 
   let url = getUrlBySite(contextPath, getUrl(story, arcSite, true), arcSite);
   if (utm) {
-    url = url + utm;
+    url += utm;
   }
 
   return (
@@ -127,45 +41,46 @@ const Image = ({
     >
       {isPremium(story) ? <div className="premium-article-tag" /> : null}
       {isVideo(story) ? <div className="video-article-tag" /> : null}
-      {showImage && !_.isNil(imageResizedUrl) && !_.isEmpty(imageResizedUrl) && (
-        <a
-          href={url}
-          title={imageCaption}
-          target={
-            // eslint-disable-next-line camelcase
-            (story.related_content?.redirect?.length > 0 && '_blank') || target
-              ? '_blank'
-              : undefined
-          }
-          rel={
-            story.subtype === 'branded_content' ||
-            story.subtype === 'lvi_articulo_patrocinado'
-              ? 'sponsored'
-              : undefined
-          }
+      {image?.url ? (
+        <ConditionalWrap
+          condition={targetBlank}
+          wrap={(children) => (
+              <a
+                href={url}
+                title={imageCaption || defaultCaption}
+                rel={`noreferrer ${rel}`}
+                target="_blank"
+              >
+                {children}
+              </a>
+            )}
+          wrapElse={(children) => (
+              <a href={url} title={imageCaption || defaultCaption} rel={rel}>
+                {children}
+              </a>
+            )}
         >
-          <CImage
-            alt={imageCaption}
-            className={imageRounded ? 'circle' : ''}
-            src={imageResizedUrl}
-            srcset={imageSets ? srcset : undefined}
-            sizes={sizes}
-            placeholder={defaultImage && defaultImage.url}
+          <UIImage
+            alt={imageCaption || defaultCaption}
+            ansImage={image}
             width={imageWidth}
-            ampLayout={imageLayout}
-            dataHero={imageIndex === 0}
-            Importance={imageIndex === 0}
-            showCaption={false}
-            caption={imageCaption}
-            forceImg={imageForce}
-            height={showAuthorImage ? imageWidth : imageHeight}
+            height={imageHeight}
             credits={imageCredits}
+            data-hero={isImportant ? "" : undefined}
+            loading={isImportant ? "eager" : "lazy"}
+            importance={isImportant ? "high" : undefined}
+            fetchpriority={isImportant ? "high" : "low"}
+            decoding={isImportant ? "sync" : "async"}
+            resizedOptions={{
+              quality: 75,
+              smart: true,
+            }}
           />
-        </a>
-      )}
+        </ConditionalWrap>
+      ) : null}
     </div>
   );
-};
+}
 
 Image.propTypes = {
   story: PropTypes.object.isRequired,

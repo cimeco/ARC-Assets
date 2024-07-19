@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { pushWhen } from '@cimeco/utils';
+import { isPremium , isVideo } from '@cimeco/utils/src/story';
 import Content from './content.jsx';
 import Icon from './icon.jsx';
 import Image from './image.jsx';
-import { pushWhen } from '@cimeco/utils';
-import { isPremium } from '@cimeco/utils/src/story';
-import { isVideo } from '@cimeco/utils/src/story';
+
 
 function Card({
   story,
@@ -150,9 +150,7 @@ function Card({
           imagePosition === 'back' ? 'no-height' : ''
         }`}
       >
-        {orderedPartials.map((item) => {
-          return <Fragment key={item}>{partials[item]}</Fragment>;
-        })}
+        {orderedPartials.map((item) => <Fragment key={item}>{partials[item]}</Fragment>)}
       </div>
     </article>
   );
