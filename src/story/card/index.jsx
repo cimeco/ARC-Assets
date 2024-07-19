@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { useFusionContext } from "fusion:context";
 import _ from 'lodash';
 import { pushWhen } from '@cimeco/utils';
 import { isPremium , isVideo } from '@cimeco/utils/src/story';
-import Content from './content.jsx';
-import Icon from './icon.jsx';
-import Image from './image.jsx';
+import Content from './content';
+import Icon from './icon';
+import Image from './image';
 
 
 function Card({
@@ -42,6 +43,11 @@ function Card({
   showFlywheel,
   utm
 }) {
+  const { arcSite, contextPath } = useFusionContext();
+  const url = `${getUrlBySite(contextPath, getUrl(story, arcSite), arcSite)}${
+    utm || ""
+  }`;
+
   /* Class Names */
   const hasOverlay = imagePosition === 'back';
   const showImage = imagePosition !== 'none';
@@ -123,7 +129,8 @@ function Card({
     imageSets,
     showAuthorImage,
     showImage,
-    utm
+    utm,
+    url
   };
 
   const iconProperties = {

@@ -16,22 +16,29 @@ function Image({
   imageHeight,
   imageWidth,
   showAuthorImage,
-  target,
-  utm
+  isImportant,
+  rel,
+  targetBlank,
+  url,
 }) {
-  const { arcSite, contextPath } = useFusionContext();
-  const websiteBlank = story.canonical_website;
-  if (websiteBlank !== arcSite) {
-    target = true;
-  }
+  const {
+    credits: { by: [author] } = { by: [] },
+    headlines: { basic: headlineBasic } = { basic: "" },
+    promo_items: { basic: promoItemsBasic } = {
+      basic: { subtitle: undefined, credits: { by: [] } },
+    },
+  } = story;
 
+  const defaultCaption = headlineBasic;
   const image = showAuthorImage ? author.image : promoItemsBasic;
   const imageCaption = showAuthorImage ? author.name : promoItemsBasic.subtitle;
 
-  let url = getUrlBySite(contextPath, getUrl(story, arcSite, true), arcSite);
-  if (utm) {
-    url += utm;
-  }
+  const imageCredits = showAuthorImage
+    ? ""
+    : (promoItemsBasic.credits?.by?.length > 0 &&
+        promoItemsBasic.credits.by[0].name) ||
+      (promoItemsBasic.credits?.affilation?.length > 0 &&
+        promoItemsBasic.credits.affilation[0].name);
 
   return (
     <div
@@ -83,34 +90,19 @@ function Image({
 }
 
 Image.propTypes = {
-  story: PropTypes.object.isRequired,
   imageForce: PropTypes.bool,
   imageHeight: PropTypes.number,
-  imageIndex: PropTypes.number,
-  imageLayout: PropTypes.oneOf(['responsive', 'fixed-height', 'fixed']),
-  imagePosition: PropTypes.oneOf([
-    'top',
-    'right',
-    'bottom',
-    'left',
-    'back',
-    'none'
-  ]),
-  imageRounded: PropTypes.bool,
   imageSets: PropTypes.object,
-  imageSetSizes: PropTypes.string,
   imageWidth: PropTypes.number,
-  isAmp: PropTypes.bool,
+  isImportant: PropTypes.bool,
+  rel: PropTypes.string,
   showAuthorImage: PropTypes.bool,
-  showIcon: PropTypes.bool,
-  showImage: PropTypes.bool,
-  srcset: PropTypes.string,
-  target: PropTypes.string,
-  utm: PropTypes.string
-};
-
-Image.defaultProps = {
-  showIcon: false
+  showVideo: PropTypes.bool.tag({
+    defaultValue: false,
+  }),
+  story: PropTypes.object,
+  targetBlank: PropTypes.bool,
+  url: PropTypes.string,
 };
 
 export default Image;
