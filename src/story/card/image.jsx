@@ -1,9 +1,7 @@
-import { useFusionContext } from 'fusion:context';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
-  getUrl,
   isPremium,
   isVideo,
 } from '@cimeco/utils/src/story';
@@ -21,12 +19,13 @@ function Image({
   url,
 }) {
   const {
-    credits: { by: [author] } = { by: [] },
     headlines: { basic: headlineBasic } = { basic: "" },
     promo_items: { basic: promoItemsBasic } = {
       basic: { subtitle: undefined, credits: { by: [] } },
     },
   } = story;
+
+  const author = story.credits?.by?.length > 0 ? story.credits.by[0] : {};
 
   const defaultCaption = headlineBasic;
   const image = showAuthorImage ? author.image : promoItemsBasic;

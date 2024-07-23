@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import { useFusionContext } from "fusion:context";
 import _ from 'lodash';
 import { getUrl, isPremium , isVideo } from '@cimeco/utils/src/story';
-import { pushWhen , getUrlBySite } from '@cimeco/utils';
+import { pushWhen, getUrlBySite } from '@cimeco/utils';
 import Content from './content';
 import Icon from './icon';
 import Image from './image';
-
 
 function Card({
   story,
