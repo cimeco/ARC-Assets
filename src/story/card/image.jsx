@@ -13,6 +13,7 @@ function Image({
   imageHeight,
   imageWidth,
   showAuthorImage,
+  showImage,
   isImportant,
   rel,
   targetBlank,
@@ -38,7 +39,7 @@ function Image({
       (promoItemsBasic.credits?.affilation?.length > 0 &&
         promoItemsBasic.credits.affilation[0].name);
 
-  return (
+  return showImage ? (
     <div
       className={`article-image ${
         _.isNil(image) || (_.isNil(image.url) ? 'no-image' : '')
@@ -84,7 +85,7 @@ function Image({
         </ConditionalWrap>
       ) : null}
     </div>
-  );
+  ) : null;
 }
 
 Image.propTypes = {
@@ -101,6 +102,7 @@ Image.propTypes = {
   story: PropTypes.object,
   targetBlank: PropTypes.bool,
   url: PropTypes.string,
+  showImage: PropTypes.bool
 };
 
 export default Image;
