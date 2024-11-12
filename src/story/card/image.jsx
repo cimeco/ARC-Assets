@@ -30,7 +30,7 @@ function Image({
 
   const defaultCaption = headlineBasic;
   const image = showAuthorImage ? author.image : promoItemsBasic;
-  const imageCaption = showAuthorImage ? author.name : promoItemsBasic.subtitle;
+  const imageCaption = showAuthorImage ? author.name : promoItemsBasic.caption;
 
   const imageCredits = showAuthorImage
     ? ""
